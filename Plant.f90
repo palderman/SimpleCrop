@@ -146,9 +146,9 @@ subroutine integrate_plant(INTOT,&
 
   implicit none
 
-  integer doy
+  integer doy,endsim
   real INTOT,dLAI,dw,dwc,dwr,dwf,dN,di,&
-     LAI,w,wc,wr,wf,N,int,endsim
+     LAI,w,wc,wr,wf,N,int
 
   LAI = LAI + dLAI
   w  = w  + dw
