@@ -55,7 +55,7 @@
 
 !************************************************************************
 
-subroutine init_sw(WP, FC, ST, SWC_INIT, DRNp, S, THE,&
+subroutine init_soil_water(WP, FC, ST, SWC_INIT, DRNp, S, THE,&
      SWC, DP, SWFAC1, SWFAC2,&
      TRAIN, TIRR, TESA, TEPA, TROF, TDRN, TINF, SWC_ADJ)
 
@@ -110,9 +110,9 @@ subroutine init_sw(WP, FC, ST, SWC_INIT, DRNp, S, THE,&
   TINF  = 0.0
   SWC_ADJ = 0.0
 
-end subroutine init_sw
+end subroutine init_soil_water
 
-subroutine calc_daily_sw(SRAD,TMAX,TMIN,RAIN,&
+subroutine calc_soil_water_rates(SRAD,TMAX,TMIN,RAIN,&
      S,FC,WP,DRNp,&
      SWC,SWFAC1,SWFAC2,LAI,&
      TIRR,TRAIN,&
@@ -152,9 +152,9 @@ subroutine calc_daily_sw(SRAD,TMAX,TMIN,RAIN,&
   CALL ESaS(ESp,SWC,FC,WP,ESa)
   EPa = EPp * MIN(SWFAC1, SWFAC2)
 
-end subroutine calc_daily_sw
+end subroutine calc_soil_water_rates
 
-subroutine integ_daily_sw(ST,THE,&
+subroutine integrate_soil_water(ST,THE,&
      SWC,&
      INF, ESa, EPa, DRN, ROF,&
      SWFAC1,SWFAC2,&
@@ -187,9 +187,9 @@ subroutine integ_daily_sw(ST,THE,&
 
   CALL STRESS(THE,SWC, DP, FC, ST, WP, SWFAC1, SWFAC2)
 
-end subroutine integ_daily_sw
+end subroutine integrate_soil_water
 
-subroutine write_daily_sw(DOY, SRAD, TMAX, TMIN, RAIN, IRR, ROF, INF, DRN,&
+subroutine write_soil_water_output(DOY, SRAD, TMAX, TMIN, RAIN, IRR, ROF, INF, DRN,&
        ETP, ESa, EPa, SWC, DP, SWFAC1, SWFAC2)
 
   implicit none
@@ -202,7 +202,7 @@ subroutine write_daily_sw(DOY, SRAD, TMAX, TMIN, RAIN, IRR, ROF, INF, DRN,&
        DOY, SRAD, TMAX, TMIN, RAIN, IRR, ROF, INF, DRN,&
        ETP, ESa, EPa, SWC, SWC/DP, SWFAC1, SWFAC2
 
-end subroutine write_daily_sw
+end subroutine write_soil_water_output
 
 !************************************************************************
 !*     Subroutine DRAIN
