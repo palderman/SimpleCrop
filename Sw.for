@@ -79,9 +79,9 @@
 !************************************************************************
       IF (INDEX(DYN,'INITIAL') .NE. 0) THEN
 !************************************************************************
-        OPEN(3,FILE='SOIL.INP',STATUS='UNKNOWN')
+        OPEN(3,FILE='soil.inp',STATUS='UNKNOWN')
         OPEN(10,FILE='sw.out',  STATUS='REPLACE')
-        OPEN(11,FILE='IRRIG.INP',STATUS='UNKNOWN')
+        OPEN(11,FILE='irrig.inp',STATUS='UNKNOWN')
         
         READ(3,10) WPp,FCp,STp,DP,DRNp,CN,SWC
    10   FORMAT(5X,F5.2,5X,F5.2,5X,F5.2,5X,F7.2,5X,F5.2,5X,F5.2,5X,F5.2)
@@ -468,7 +468,7 @@ C
       REAL WATBAL, SWC_ADJ, TINF
       REAL CHECK
 !-----------------------------------------------------------------------
-      OPEN (LSWC, FILE = 'WBAL.OUT', STATUS = 'REPLACE')
+      OPEN (LSWC, FILE = 'wbal.out', STATUS = 'REPLACE')
 
       WATBAL = (SWC_INIT - SWC) + (TRAIN + TIRR) - 
 !      0.0   =(Change in storage)+  (Inflows)    -
