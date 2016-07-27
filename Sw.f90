@@ -56,13 +56,13 @@
 !************************************************************************
 
 subroutine init_soil_water(WP, FC, ST, SWC_INIT, DRNp, S, THE,&
-     SWC, DP, SWFAC1, SWFAC2,&
+     SWC, DP, SWFAC1, SWFAC2, IRR,&
      TRAIN, TIRR, TESA, TEPA, TROF, TDRN, TINF, SWC_ADJ)
 
   implicit none
 
   real WP, FC, ST, SWC_INIT, DRNp, CN, S, THE,&
-     SWC, DP, SWFAC1, SWFAC2,&
+     SWC, DP, SWFAC1, SWFAC2,IRR,&
      TRAIN, TIRR, TESA, TEPA, TROF, TDRN, TINF, SWC_ADJ
   real WPp,FCp,STp
 
@@ -109,13 +109,14 @@ subroutine init_soil_water(WP, FC, ST, SWC_INIT, DRNp, S, THE,&
   TDRN  = 0.0
   TINF  = 0.0
   SWC_ADJ = 0.0
+  IRR = 0.0
 
 end subroutine init_soil_water
 
 subroutine calc_soil_water_rates(SRAD,TMAX,TMIN,RAIN,&
      S,FC,WP,DRNp,&
      SWC,SWFAC1,SWFAC2,LAI,&
-     TIRR,TRAIN,&
+     IRR, TIRR,TRAIN,&
      DRN, INF, ROF, EPa, ESa)
 
   implicit none

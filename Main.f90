@@ -60,11 +60,11 @@ PROGRAM MAIN
   call open_wth('weather.inp')
 
   call init_soil_water(WP, FC, ST, SWC_INIT, DRNp, S, THE,&
-     SWC, DP, SWFAC1, SWFAC2,&
+     SWC, DP, SWFAC1, SWFAC2, IRR,&
      TRAIN, TIRR, TESA, TEPA, TROF, TDRN, TINF, SWC_ADJ)
 
   call init_plant(Lfmax, EMP2,EMP1,PD,nb,rm,fc,tb,intot,n,lai,w,wr,wc,&
-     p1,sla,endsim,count)
+     p1,sla,endsim,count,int)
 
   
 !-----------------------------------------------------------------------
@@ -82,15 +82,15 @@ PROGRAM MAIN
         call calc_soil_water_rates(SRAD,TMAX,TMIN,RAIN,&
              S,FC,WP,DRNp,&
              SWC,SWFAC1,SWFAC2,LAI,&
-             TIRR,TRAIN,&
+             IRR,TIRR,TRAIN,&
              DRN, INF, ROF, EPa, ESa)
 
-          IF (DOY .GT. DOYP) THEN
-             call calc_plant_rates(PD,rm,Lfmax,EMP1,EMP2,nb,p1,sla,Fc,tb,&
-                  TMAX,TMIN,PAR,SWFAC1,SWFAC2,&
-                  LAI,&
-                  Pg,N,dLAI,dN,dw,dwc,dwr,dwf,di)
-          ENDIF
+        IF (DOY .GT. DOYP) THEN
+           call calc_plant_rates(PD,rm,Lfmax,EMP1,EMP2,nb,p1,sla,Fc,tb,&
+                TMAX,TMIN,PAR,SWFAC1,SWFAC2,&
+                LAI,&
+                Pg,N,dLAI,dN,dw,dwc,dwr,dwf,di)
+        ENDIF
 
 !************************************************************************
 !************************************************************************
@@ -170,7 +170,7 @@ PROGRAM MAIN
       IMPLICIT NONE
       INTEGER DOYP, FROP
 
-      OPEN (UNIT=8, FILE='SIMCTRL.INP',STATUS='UNKNOWN')
+      OPEN (UNIT=8, FILE='simctrl.inp',STATUS='UNKNOWN')
       READ(8,5) DOYP, FROP
       IF (FROP .LE. 0) FROP = 1
     5 FORMAT(2I6)

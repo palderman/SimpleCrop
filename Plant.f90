@@ -52,13 +52,13 @@
 
 subroutine init_plant(&
      Lfmax, EMP2,EMP1,PD,nb,rm,fc,tb,intot,n,lai,w,wr,wc,&
-     p1,sla,endsim,count)
+     p1,sla,endsim,count,int)
 
   implicit none
 
   character(len=400) linefmt
   real Lfmax, EMP2,EMP1,PD,nb,rm,fc,tb,intot,n,lai,w,wr,wc,&
-       p1,sla,endsim,count
+       p1,sla,endsim,count,int
 
   endsim = 0
 
@@ -69,7 +69,7 @@ subroutine init_plant(&
 
   OPEN (1,FILE='plant.out',STATUS='REPLACE')
 
-  linefmt =  'Results of plant growth simulation: '
+  linefmt =  "('Results of plant growth simulation: ')"
   WRITE(1,linefmt)
   WRITE(*,linefmt)
 
@@ -82,6 +82,7 @@ subroutine init_plant(&
   WRITE(1,linefmt)
   WRITE(*,linefmt)
 
+  int = 0
   COUNT = 0
 
 end subroutine init_plant
@@ -177,7 +178,8 @@ subroutine write_plant_output(DOY,n,int,w,wc,wr,wf,lai,COUNT)
 
   implicit none
 
-  real DOY,n,int,w,wc,wr,wf,lai,COUNT
+  integer DOY
+  real n,int,w,wc,wr,wf,lai,COUNT
 
   WRITE(1,'(I5,7F8.2)') DOY,n,int,w,wc,wr,wf,lai
   WRITE(*,'(I5,7F8.2)') DOY,n,int,w,wc,wr,wf,lai
