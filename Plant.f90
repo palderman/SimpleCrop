@@ -22,7 +22,7 @@
 !*     EMP1  = empirical coef. for expoilinear eq.
 !*     EMP2  = empirical coef. for expoilinear eq.
 !*     endsim= code signifying physiological maturity (end of simulation)
-!*     Fc    = fraction of total crop growth partitioned to canopy
+!*     Fcan    = fraction of total crop growth partitioned to canopy
 !*     FL    = code for development phase (1=vegetative phase, 
 !*                 2=reproductive phase)
 !*     int   = accumulated temperature after reproductive phase starts (c)
@@ -51,19 +51,19 @@
 !*     Wr    = root dry matter weight (g m-2)
 
 subroutine init_plant(&
-     Lfmax, EMP2,EMP1,PD,nb,rm,fc,tb,intot,n,lai,w,wr,wc,&
+     Lfmax, EMP2,EMP1,PD,nb,rm,Fcan,tb,intot,n,lai,w,wr,wc,&
      p1,sla,endsim,count,int)
 
   implicit none
 
   character(len=400) linefmt
-  real Lfmax, EMP2,EMP1,PD,nb,rm,fc,tb,intot,n,lai,w,wr,wc,&
+  real Lfmax, EMP2,EMP1,PD,nb,rm,Fcan,tb,intot,n,lai,w,wr,wc,&
        p1,sla,endsim,count,int
 
   endsim = 0
 
   OPEN (2,FILE='plant.inp',STATUS='UNKNOWN')
-  READ(2,'(17(1X,F7.4))') Lfmax, EMP2,EMP1,PD,nb,rm,fc,tb,intot,n,lai,w,wr,wc,&
+  READ(2,'(17(1X,F7.4))') Lfmax, EMP2,EMP1,PD,nb,rm,Fcan,tb,intot,n,lai,w,wr,wc,&
        p1,sla
   CLOSE(2)
 
@@ -87,14 +87,14 @@ subroutine init_plant(&
 
 end subroutine init_plant
 
-subroutine calc_plant_rates(PD,rm,Lfmax,EMP1,EMP2,nb,p1,sla,Fc,tb,&
+subroutine calc_plant_rates(PD,rm,Lfmax,EMP1,EMP2,nb,p1,sla,Fcan,tb,&
      TMAX,TMIN,PAR,SWFAC1,SWFAC2,&
      LAI,&
      Pg,N,dLAI,dN,dw,dwc,dwr,dwf,di)
 
   implicit none
 
-  real PD,rm,Lfmax,EMP1,EMP2,nb,p1,sla,Fc,tb,&
+  real PD,rm,Lfmax,EMP1,EMP2,nb,p1,sla,Fcan,tb,&
      TMAX,TMIN,PAR,SWFAC1,SWFAC2,&
      LAI,&
      Pg,N,dLAI,dN,dw,dwc,dwr,dwf,di
@@ -113,8 +113,8 @@ subroutine calc_plant_rates(PD,rm,Lfmax,EMP1,EMP2,nb,p1,sla,Fc,tb,&
      CALL LAIS(FL,di,PD,EMP1,EMP2,N,nb,SWFAC1,SWFAC2,PT,&
           dN,p1, sla, dLAI)
      dw = E * (Pg) * PD
-     dwc = Fc * dw
-     dwr = (1-Fc) * dw
+     dwc = Fcan * dw
+     dwr = (1-Fcan) * dw
      dwf = 0.0
      di = 0.0
 
@@ -180,6 +180,7 @@ subroutine write_plant_output(DOY,n,int,w,wc,wr,wf,lai,COUNT)
 
   integer DOY
   real n,int,w,wc,wr,wf,lai,COUNT
+  character(len=400) linefmt
 
   WRITE(1,'(I5,7F8.2)') DOY,n,int,w,wc,wr,wf,lai
   WRITE(*,'(I5,7F8.2)') DOY,n,int,w,wc,wr,wf,lai
@@ -187,6 +188,14 @@ subroutine write_plant_output(DOY,n,int,w,wc,wr,wf,lai,COUNT)
   IF (COUNT .EQ. 23) THEN
      COUNT = 0
      WRITE(*,'(//)')
+     linefmt = "(//,'                Accum',"//&
+       "/,'       Number    Temp                                    Leaf',"//&
+       "/,'  Day      of  during   Plant  Canopy    Root   Fruit    Area',"//&
+       "/,'   of    Leaf  Reprod  Weight  Weight  Weight  weight   Index',"//&
+       "/,' Year   Nodes    (oC)  (g/m2)  (g/m2)  (g/m2)  (g/m2) (m2/m2)',"//&
+       "/,' ----  ------  ------  ------  ------  ------  ------  ------')"
+     write(*,linefmt)
+
   ENDIF
 
   COUNT = COUNT + 1

@@ -43,7 +43,7 @@ PROGRAM MAIN
      SWC, DP, SWFAC1, SWFAC2,&
      TRAIN, TIRR, TESA, TEPA, TROF, TDRN, TINF, SWC_ADJ
 
-  real Lfmax, EMP2,EMP1,PD,nb,rm,tb,intot,LAI,w,wr,wc,wf,&
+  real Lfmax, EMP2,EMP1,PD,nb,rm,Fcan,tb,intot,LAI,w,wr,wc,wf,&
      p1,sla,count
 
   real SRAD,TMAX,TMIN,RAIN,&
@@ -63,7 +63,7 @@ PROGRAM MAIN
      SWC, DP, SWFAC1, SWFAC2, IRR,&
      TRAIN, TIRR, TESA, TEPA, TROF, TDRN, TINF, SWC_ADJ)
 
-  call init_plant(Lfmax, EMP2,EMP1,PD,nb,rm,fc,tb,intot,n,lai,w,wr,wc,&
+  call init_plant(Lfmax, EMP2,EMP1,PD,nb,rm,Fcan,tb,intot,n,lai,w,wr,wc,&
      p1,sla,endsim,count,int)
 
   
@@ -86,7 +86,7 @@ PROGRAM MAIN
              DRN, INF, ROF, EPa, ESa)
 
         IF (DOY .GT. DOYP) THEN
-           call calc_plant_rates(PD,rm,Lfmax,EMP1,EMP2,nb,p1,sla,Fc,tb,&
+           call calc_plant_rates(PD,rm,Lfmax,EMP1,EMP2,nb,p1,sla,Fcan,tb,&
                 TMAX,TMIN,PAR,SWFAC1,SWFAC2,&
                 LAI,&
                 Pg,N,dLAI,dN,dw,dwc,dwr,dwf,di)
@@ -96,7 +96,7 @@ PROGRAM MAIN
 !************************************************************************
 !     INTEGRATION OF STATE VARIABLES
 !************************************************************************
-          call integrate_soil_water(ST,THE,&
+          call integrate_soil_water(ST,THE,FC,DP,WP,&
                SWC,&
                INF, ESa, EPa, DRN, ROF,&
                SWFAC1,SWFAC2,&

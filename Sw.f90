@@ -78,8 +78,7 @@ subroutine init_soil_water(WP, FC, ST, SWC_INIT, DRNp, S, THE,&
 
   write(10,*) "Results of soil water balance simulation:"
   write(10,'(105x,a)') "Soil"
-  write(10,'(73x,a)') "Pot.  Actual  Actual    Soil   Water"
-  write(10,'(10x,a)') "Excess"
+  write(10,'(73x,a,10x,a)') "Pot.  Actual  Actual    Soil   Water","Excess"
   write(10,'(a,42x,a)') "  Day   Solar     Max     Min",&
        "Evapo-    Soil   Plant   Water Content Drought   Water"
   write(10,'(a,a,a)') "   of    Rad.    Temp    Temp    Rain   Irrig  Runoff", &
@@ -155,7 +154,7 @@ subroutine calc_soil_water_rates(SRAD,TMAX,TMIN,RAIN,&
 
 end subroutine calc_soil_water_rates
 
-subroutine integrate_soil_water(ST,THE,&
+subroutine integrate_soil_water(ST,THE,FC,DP,WP,&
      SWC,&
      INF, ESa, EPa, DRN, ROF,&
      SWFAC1,SWFAC2,&
