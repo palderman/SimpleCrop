@@ -6,6 +6,8 @@
 
 //using namespace std
 
+extern "C" {
+
 void read_plant_input(std::map<std::string,float> *inpmap, 
 		      std::string *filename)
 {
@@ -53,4 +55,5 @@ void get_value(std::map<std::string,float> *inpmap,std::string *key,float *value
 void delete_plant_input(std::map<std::string,float> *inpmap)
 {
   (*inpmap).~map();
+}
 }
