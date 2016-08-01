@@ -61,6 +61,8 @@
      &    DYN)                                            !Control
 
 !-----------------------------------------------------------------------
+      use io_mod
+
       IMPLICIT NONE 
       SAVE
 
@@ -79,13 +81,21 @@
 !************************************************************************
       IF (INDEX(DYN,'INITIAL') .NE. 0) THEN
 !************************************************************************
-        OPEN(3,FILE='soil.inp',STATUS='UNKNOWN')
+!        OPEN(3,FILE='soil.inp',STATUS='UNKNOWN')
         OPEN(10,FILE='sw.out',  STATUS='REPLACE')
         OPEN(11,FILE='irrig.inp',STATUS='UNKNOWN')
         
-        READ(3,10) WPp,FCp,STp,DP,DRNp,CN,SWC
-   10   FORMAT(5X,F5.2,5X,F5.2,5X,F5.2,5X,F7.2,5X,F5.2,5X,F5.2,5X,F5.2)
-        CLOSE(3)
+!        READ(3,10) WPp,FCp,STp,DP,DRNp,CN,SWC
+!   10   FORMAT(5X,F5.2,5X,F5.2,5X,F5.2,5X,F7.2,5X,F5.2,5X,F5.2,5X,F5.2)
+!        CLOSE(3)
+
+        call get('WPp',WPp)
+        call get('FCp',FCp)
+        call get('STp',STp)
+        call get('DP',Dp)
+        call get('DRNp',DRNp)
+        call get('CN',CN)
+        call get('SWC',SWC)
 
         WRITE(10,15)
    15   FORMAT('Results of soil water balance simulation:',
