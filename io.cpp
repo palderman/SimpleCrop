@@ -8,8 +8,14 @@
 
 extern "C" {
 
-void read_plant_input(std::map<std::string,float> *inpmap, 
-		      std::string *filename)
+  void init_input_c(std::map<std::string,float> *inpmap)
+  {
+    std::map<std::string,float> newmap;
+    *inpmap = newmap;
+  }
+
+  void read_input_c(std::map<std::string,float> *inpmap, 
+		      char *filename)
 {
   std::ifstream inpfile;
   std::string line;
@@ -18,7 +24,7 @@ void read_plant_input(std::map<std::string,float> *inpmap,
   std::string cur_name;
   float cur_val;
 
-  inpfile.open((*filename).c_str());
+  inpfile.open(filename);
 
   getline(inpfile,line);
   values.str(line);
@@ -35,24 +41,24 @@ void read_plant_input(std::map<std::string,float> *inpmap,
 
 }
 
-void get_value(std::map<std::string,float> *inpmap,std::string *key,float *value)
+  void get_c(std::map<std::string,float> *inpmap,char *key,float *value)
 {
   std::map<std::string,float>::iterator tmp;
 
-  tmp = (*inpmap).find(*key);
+  tmp = (*inpmap).find(key);
 
   if(tmp != (*inpmap).end())
     {
-      *value = (*inpmap)[*key];
+      *value = (*tmp).second;
     }
   else
     {
-      std::cout << *key << " not found in input data structure." << std::endl;
+      std::cout << key << " not found in input data structure." << std::endl;
     }
 }
 
 
-void delete_plant_input(std::map<std::string,float> *inpmap)
+  void delete_input_obj_c(std::map<std::string,float> *inpmap)
 {
   (*inpmap).~map();
 }

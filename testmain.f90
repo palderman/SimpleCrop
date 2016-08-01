@@ -6,12 +6,14 @@ program test
 
   real Lfmax
 
-  call read_plant_input('plant.inp')
+  call init_input_obj()
+
+  call read_input('plant.inp')
 
   call get('Lfmax',Lfmax)
 
-  write(*,*) Lfmax
+  write(*,*) 'Lfmax = ',Lfmax
 
-  call delete_plant_input()
+  call delete_input_obj()
 
 end program test

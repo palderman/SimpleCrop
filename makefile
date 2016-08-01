@@ -8,4 +8,4 @@ testio:
 	g++ -g -c io.cpp
 	gfortran -g -c io_mod.f90
 	gfortran -g -c testmain.f90
-	gfortran *.o -o Data/testio.so -l
+	gfortran *.o -o Data/testio.so -lstdc++
