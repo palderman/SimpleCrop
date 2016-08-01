@@ -59,6 +59,8 @@ C****************************************************************************
      &    DYN)                                            !Control
 
 !-----------------------------------------------------------------------  
+      use io_mod
+
       IMPLICIT NONE 
       SAVE 
 
@@ -79,13 +81,29 @@ C****************************************************************************
 !************************************************************************
         endsim = 0
 
-        OPEN (2,FILE='plant.inp',STATUS='UNKNOWN')
+!        OPEN (2,FILE='plant.inp',STATUS='UNKNOWN')
         OPEN (1,FILE='plant.out',STATUS='REPLACE')
         
-        READ(2,10) Lfmax, EMP2,EMP1,PD,nb,rm,fc,tb,intot,n,lai,w,wr,wc
-     &     ,p1,sla
-   10   FORMAT(17(1X,F7.4))
-        CLOSE(2)
+!        READ(2,10) Lfmax, EMP2,EMP1,PD,nb,rm,fc,tb,intot,n,lai,w,wr,wc
+!     &     ,p1,sla
+!   10   FORMAT(17(1X,F7.4))
+!        CLOSE(2)
+        call get('Lfmax',Lfmax)
+        call get('EMP2',EMP2)
+        call get('EMP1',EMP1)
+        call get('PD',PD)
+        call get('nb',nb)
+        call get('rm',rm)
+        call get('fc',fc)
+        call get('tb',tb)
+        call get('intot',intot)
+        call get('n',n)
+        call get ('lai',lai)
+        call get('w',w)
+        call get('wr',wr)
+        call get('wc',wc)
+        call get('p1',p1)
+        call get('sla',sla)
 
         WRITE(1,11)
         WRITE(1,12)
